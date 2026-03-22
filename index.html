@@ -198,7 +198,68 @@
             </div>
         </div>
     </div>
-
+<div class="price-table-section">
+        <h2 style="text-align: center;">வாராந்திர உணவுப் பட்டியல் (Weekly Menu & Quantity)</h2>
+        <p style="text-align: center; color: #666; font-size: 0.9rem;">(தரமான பொருட்கள் மற்றும் சரியான அளவுடன்)</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>நாள்</th>
+                    <th>காலை (₹50)</th>
+                    <th>மதியம் (₹70)</th>
+                    <th>இரவு (₹60)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>திங்கள்</strong></td>
+                    <td>4 இட்லி, சாம்பார், சட்னி</td>
+                    <td>சாதம் (400g), சாம்பார், கூட்டு, பொரியல், அப்பளம், மோர்</td>
+                    <td>3 தோசை, சாம்பார் & சட்னி</td>
+                </tr>
+                <tr>
+                    <td><strong>செவ்வாய்</strong></td>
+                    <td>பொங்கல் (250g), 1 வடை, சட்னி</td>
+                    <td>சாதம், வத்தக் குழம்பு, கூட்டு, பொரியல், அப்பளம், மோர்</td>
+                    <td>3 சப்பாத்தி, காய்கறி குருமா</td>
+                </tr>
+                <tr>
+                    <td><strong>புதன்</strong></td>
+                    <td>3 பூரி, கிழங்கு மசாலா</td>
+                    <td>சாதம், கீரை குழம்பு, பொரியல், கூட்டு, வடம், மோர்</td>
+                    <td>3 பொடி தோசை, சாம்பார் & சட்னி</td>
+                </tr>
+                <tr>
+                    <td><strong>வியாழன்</strong></td>
+                    <td>ரவா கிச்சடி (250g), சட்னி</td>
+                    <td>சாதம், பூண்டு குழம்பு, பொரியல், கூட்டு, அப்பளம், மோர்</td>
+                    <td>3 சப்பாத்தி, பருப்பு கடைசல்</td>
+                </tr>
+                <tr>
+                    <td><strong>வெள்ளி</strong></td>
+                    <td>4 இட்லி, காரச் சட்னி, சாம்பார்</td>
+                    <td>எலுமிச்சை சாதம், தயிர் சாதம், உருளை வறுவல்</td>
+                    <td>2 ஊத்தாப்பம், சாம்பார் & சட்னி</td>
+                </tr>
+                <tr>
+                    <td><strong>சனி</strong></td>
+                    <td>2 ரவா தோசை, சாம்பார், சட்னி</td>
+                    <td>சாதம், மோர் குழம்பு, பொரியல், கூட்டு, அப்பளம், மோர்</td>
+                    <td>3 கோதுமை தோசை, புதினா சட்னி</td>
+                </tr>
+                <tr>
+                    <td><strong>ஞாயிறு</strong></td>
+                    <td>2 மசாலா தோசை, சட்னி</td>
+                    <td><strong>ஸ்பெஷல்:</strong> பிரியாணி (450g) அல்லது முழு மீல்ஸ்</td>
+                    <td>3 சப்பாத்தி, பன்னீர் பட்டர் மசாலா</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="margin-top: 15px; font-size: 0.85rem; color: #2c3e50; text-align: center;">
+            * மாதம் முழுவதும் 3 வேளைகளும் பெறுவோருக்கு சிறப்பு விலை: <strong>₹5000 மட்டும்</strong>
+        </p>
+    </div>
+   
     <div class="price-table-section">
         <h2 style="text-align: center;">விலை விபரம் (Price Chart)</h2>
         <table>
@@ -244,7 +305,7 @@
             
             <div class="form-group">
                 <label>செல்போன் எண் (Mobile):</label>
-                <input type="tel" id="phone" placeholder="98xxxxxxxx" required>
+                <input type="tel" id="phone" placeholder="9865487644" required>
             </div>
 
             <div class="form-group">
@@ -336,7 +397,7 @@
     }).then(() => {
         submitBtn.innerText = "✅ ஆர்டர் செய் (Order via WhatsApp)";
         submitBtn.disabled = false;
-        offerInstall();
+	offerInstall();
         sendToWhatsApp(formData);
     }).catch(err => {
         console.error("Error!", err);
