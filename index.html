@@ -277,7 +277,7 @@
 
 <div class="price-table-section" style="text-align: center; background: #fff;">
     <h3>எங்கள் இணையதளத்தை பகிர (Share our Website)</h3>
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=YOUR_WEBSITE_LINK_HERE" alt="Website QR Code" style="border: 5px solid #2ecc71; border-radius: 10px;">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://myshopallinall.github.io/homefoods/" alt="Website QR Code" style="border: 5px solid #2ecc71; border-radius: 10px;">
     <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">மேலே உள்ள QR கோடை ஸ்கேன் செய்து ஆர்டர் செய்யலாம்!</p>
 </div>
 
@@ -305,14 +305,28 @@
  document.getElementById('foodOrderForm').onsubmit = function(e) {
     e.preventDefault();
     
+    // படிவத் தரவுகள்
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const duration = document.getElementById('duration').value;
+    const meal = document.getElementById('meal').value;
+    const address = document.getElementById('address').value;
+
+    // செல்போன் எண் 10 இலக்கங்கள் தானா என்று சரிபார்க்கும் நிபந்தனை (10 Digit Validation)
+    const phonePattern = /^\d{10}$/; 
+    if (!phonePattern.test(phone)) {
+        alert("தயவுசெய்து சரியான 10 இலக்க செல்போன் எண்ணை உள்ளிடவும்.");
+        return; // தவறான எண் எனில் பதிவைத் தடுக்கும்
+    }
+
     const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzIE4GnvE9u4LxLQtRt5KqW1FvO_6a0hrh_IWjW90g9Qwn5Wne5e-E7hqPW9sXuTCIf/exec"; 
 
     const formData = {
-        Name: document.getElementById('name').value,
-        Phone: document.getElementById('phone').value,
-        Choice: document.getElementById('duration').value,
-        Meal: document.getElementById('meal').value,
-        Address: document.getElementById('address').value
+        Name: name,
+        Phone: phone,
+        Choice: duration,
+        Meal: meal,
+        Address: address
     };
 
     // பட்டனை தற்காலிகமாக டிஸேபிள் செய்யவும்
@@ -324,11 +338,10 @@
         method: 'POST',
         mode: 'no-cors', 
         headers: {
-            'Content-Type': 'text/plain' // CORS பிரச்சனையை தவிர்க்க text/plain பயன்படுத்தவும்
+            'Content-Type': 'text/plain'
         },
         body: JSON.stringify(formData)
     }).then(() => {
-        // வெற்றிகரமாக முடிந்தால்
         submitBtn.innerText = "✅ ஆர்டர் செய் (Order via WhatsApp)";
         submitBtn.disabled = false;
         sendToWhatsApp(formData);
