@@ -15,11 +15,11 @@
     
     <style>
         :root {
-            --primary-color: #2ecc71;
+          --primary-color: #2ecc71;
             --secondary-color: #f39c12;
             --dark-color: #2c3e50;
             --bg-color: #f8f9fa;
-        }
+ }
 
         body {
             font-family: 'Mukta Malar', sans-serif;
@@ -32,7 +32,7 @@
 
         header {
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1000');
+			url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1000');
             background-size: cover;
             background-position: center;
             color: white;
@@ -49,31 +49,17 @@
             margin: -40px auto 40px;
         }
 
-        /* புதிய மெனு தேர்வு பட்டன்கள் */
-        .menu-selection {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .selector-btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1.1rem;
+        .nav-link {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 10px 20px;
             text-decoration: none;
-            display: flex;
-            align-items: center;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-bottom: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: 0.3s;
         }
-
-        .veg-active { background: var(--primary-color); color: white; border: 2px solid var(--primary-color); }
-        .nonveg-inactive { background: white; color: #e74c3c; border: 2px solid #e74c3c; }
-        .nonveg-inactive:hover { background: #e74c3c; color: white; }
 
         .menu-grid {
             display: grid;
@@ -89,23 +75,17 @@
             transition: transform 0.3s;
             display: flex;
             flex-direction: column;
+            border-bottom: 5px solid var(--primary-color);
         }
 
         .food-card:hover { transform: translateY(-5px); }
-
-        .food-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            background-color: #ddd; /* படம் லோட் ஆகாத போது சாம்பல் நிறம் தெரியும் */
-        }
+        .food-card img { width: 100%; height: 220px; object-fit: cover; }
 
         .food-content { padding: 20px; text-align: center; flex-grow: 1; }
         .food-content h3 { margin: 0; color: var(--primary-color); }
-        .food-content p { color: #666; font-size: 0.95rem; min-height: 50px; }
         
         .price-badge {
-            background: var(--secondary-color);
+            background: var(--primary-color);
             color: white;
             padding: 8px 20px;
             border-radius: 20px;
@@ -123,20 +103,10 @@
             overflow-x: auto;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        th, td {
-            padding: 15px;
-            border: 1px solid #eee;
-            text-align: center;
-        }
-
-        th { background: var(--dark-color); color: white; }
-        tr:nth-child(even) { background-color: #f9f9f9; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 15px; border: 1px solid #eee; text-align: center; }
+        th { background: var(--primary-color); color: white; }
+        tr:nth-child(even) { background-color: #fef1f1; }
 
         .form-section {
             background: white;
@@ -149,15 +119,7 @@
 
         .form-group { margin-bottom: 15px; text-align: left; }
         label { display: block; font-weight: bold; margin-bottom: 5px; }
-        
-        input, select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            box-sizing: border-box;
-        }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
 
         .submit-btn {
             background: #25d366;
@@ -175,15 +137,14 @@
             gap: 10px;
         }
 
-        .submit-btn:hover { background: #128c7e; }
-
-        footer { text-align: center; padding: 40px; color: #888; }
+        footer { text-align: center; padding: 40px; color: #888; background: #fff; margin-top: 40px; }
 
         @media (max-width: 600px) {
             header h1 { font-size: 1.8rem; }
             th, td { padding: 10px; font-size: 0.9rem; }
         }
     </style>
+
 </head>
 <body>
 
@@ -193,10 +154,7 @@
 </header>
 
 <div class="container">
-    
-    <div class="menu-selection">
     <center><a href="nonveg.html" class="nav-link">← அசைவ உணவிற்கு மாற இங்கே கிளிக் செய்யவும்</a></center>
-</div>
 
     <div class="menu-grid">
         <div class="food-card">
