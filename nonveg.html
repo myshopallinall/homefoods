@@ -284,34 +284,56 @@
             * ஞாயிற்றுக்கிழமை ஸ்பெஷல் மட்டன் பிரியாணிக்கு கூடுதல் கட்டணம் கிடையாது (சந்தாதாரர்களுக்கு)!
         </p>
     </div>
-    <div class="form-section" id="register">
-        <h2 style="text-align: center;">அசைவ உணவை முன்பதிவு செய்ய</h2>
+ <div class="form-section" id="register">
+        <h2 style="text-align: center;">உணவை முன்பதிவு செய்ய</h2>
         <form id="nonVegOrderForm">
             <div class="form-group">
                 <label>பெயர் (Name):</label>
                 <input type="text" id="name" placeholder="உங்கள் பெயரை உள்ளிடவும்" required>
             </div>
+            
             <div class="form-group">
-                <label>செல்போன் எண் (10 இலக்கம்):</label>
-                <input type="tel" id="phone" placeholder="98xxxxxxxx" maxlength="10" required>
+                <label>செல்போன் எண் (Mobile):</label>
+                <input type="tel" id="phone" placeholder="98xxxxxxx" maxlength="10" required>
             </div>
+
+            <div class="form-group">
+                <label>பதிவு வகை (Choice):</label>
+                <select id="duration">
+                    <option value="தினசரி (Daily)">தினசரி (Daily)</option>
+                    <option value="மாதாந்திர (Monthly)">மாதாந்திர (Monthly)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>உணவு வகை (Veg/Non-Veg):</label>
+                <select id="foodType">
+                    <option value="அசைவம் (Non-Veg)">அசைவம் (Non-Veg)</option>
+                    <option value="சைவம் (Veg)">சைவம் (Veg)</option>
+                </select>
+            </div>
+
             <div class="form-group">
                 <label>உணவு வேளை (Meal Type):</label>
                 <select id="meal">
-                    <option value="அசைவ காலை">காலை மட்டும்</option>
-                    <option value="அசைவ மதியம்">மதியம் மட்டும்</option>
-                    <option value="அசைவ இரவு">இரவு மட்டும்</option>
-                    <option value="முழு நாள் அசைவம்">அனைத்து வேளைகளும்</option>
+                    <option value="காலை உணவு மட்டும்">காலை உணவு மட்டும்</option>
+                    <option value="மதிய உணவு மட்டும்">மதிய உணவு மட்டும்</option>
+                    <option value="இரவு உணவு மட்டும்">இரவு உணவு மட்டும்</option>
+                    <option value="காலை மற்றும் மதியம்">காலை மற்றும் மதியம்</option>
+                    <option value="அனைத்து வேளைகளும் (Full Day)">அனைத்து வேளைகளும் (Full Day)</option>
                 </select>
             </div>
+
             <div class="form-group">
-                <label>முகவரி (Address):</label>
-                <input type="text" id="address" placeholder="டெலிவரி முகவரி" required>
+                <label>முகவரி (Delivery Address):</label>
+                <input type="text" id="address" placeholder="உணவு டெலிவரி செய்ய வேண்டிய முகவரி" required>
             </div>
-            <button type="submit" class="submit-btn">✅ அசைவ உணவு ஆர்டர் செய் (WhatsApp)</button>
+
+            <button type="submit" class="submit-btn">
+                ✅ ஆர்டர் செய் (Order via WhatsApp)
+            </button>
         </form>
     </div>
-</div>
 
 <footer>
     <p>&copy; 2026 சுகன்யா வீட்டு அசைவ உணவு | FSSAI: 22425422000316</p>
@@ -324,43 +346,56 @@ document.getElementById('nonVegOrderForm').onsubmit = function(e) {
     
     const name = document.getElementById('name').value;
     const phone = document.getElementById('phone').value;
+    const duration = document.getElementById('duration').value;
+    const foodType = document.getElementById('foodType').value;
     const meal = document.getElementById('meal').value;
     const address = document.getElementById('address').value;
 
     if (!/^\d{10}$/.test(phone)) {
-        alert("சரியான 10 இலக்க போன் எண்ணை உள்ளிடவும்.");
+        alert("தயவுசெய்து சரியான 10 இலக்க போன் எண்ணை உள்ளிடவும்.");
         return;
     }
 
     const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzIE4GnvE9u4LxLQtRt5KqW1FvO_6a0hrh_IWjW90g9Qwn5Wne5e-E7hqPW9sXuTCIf/exec"; 
 
-    const formData = { Name: name, Phone: phone, Meal: meal, Address: address, Type: "Non-Veg" };
+    const formData = { 
+        Name: name, 
+        Phone: phone, 
+        Choice: duration, 
+        FoodType: foodType,
+        Meal: meal, 
+        Address: address 
+    };
 
     const submitBtn = e.target.querySelector('button');
     submitBtn.innerText = "பதிவாகிறது...";
     submitBtn.disabled = true;
-
+	offerInstall()
     fetch(GOOGLE_SHEET_URL, {
         method: 'POST',
         mode: 'no-cors',
         body: JSON.stringify(formData)
     }).then(() => {
-        submitBtn.innerText = "✅ அசைவ உணவு ஆர்டர் செய் (WhatsApp)";
+        submitBtn.innerText = "✅ ஆர்டர் செய் (Order via WhatsApp)";
         submitBtn.disabled = false;
-        offerInstall(); // PWA Prompt
+        if(typeof offerInstall === "function") offerInstall(); 
         sendToWhatsApp(formData);
     }).catch(() => {
+        submitBtn.disabled = false;
         sendToWhatsApp(formData);
     });
 };
 
 function sendToWhatsApp(data) {
-    let msg = `*சுகன்யா அசைவ உணவு - புதிய பதிவு!*%0A%0A` +
-              `👤 *பெயர்:* ${data.Name}%0A` +
-              `📞 *போன்:* ${data.Phone}%0A` +
-              `🍱 *உணவு:* ${data.Meal}%0A` +
-              `📍 *முகவரி:* ${data.Address}`;
-    window.open(`https://wa.me/919865487644?text=${msg}`, '_blank');
+    let myWhatsAppNumber = "919865487644"; 
+    let message = `*சுகன்யா வீட்டு உணவு - புதிய பதிவு!*%0A%0A` +
+                  `👤 *பெயர்:* ${data.Name}%0A` +
+                  `📞 *போன்:* ${data.Phone}%0A` +
+                  `📅 *வகை:* ${data.Choice}%0A` +
+                  `🥗 *உணவு:* ${data.FoodType}%0A` +
+                  `🍱 *வேளை:* ${data.Meal}%0A` +
+                  `📍 *முகவரி:* ${data.Address}`;
+    window.open(`https://wa.me/${myWhatsAppNumber}?text=${message}`, '_blank');
 }
 
 // PWA Install Prompt
