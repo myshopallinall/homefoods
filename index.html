@@ -336,6 +336,7 @@
     }).then(() => {
         submitBtn.innerText = "✅ ஆர்டர் செய் (Order via WhatsApp)";
         submitBtn.disabled = false;
+        offerInstall();
         sendToWhatsApp(formData);
     }).catch(err => {
         console.error("Error!", err);
