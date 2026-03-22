@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#e74c3c">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="சுகன்யா அசைவம்">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>சுகன்யா வீட்டு அசைவ உணவு - ஆரோக்கியமான அசைவ விருந்து</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Mukta+Malar:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #e74c3c; /* அசைவத்தைக் குறிக்கும் சிவப்பு */
+            --secondary-color: #f39c12;
+            --dark-color: #2c3e50;
+            --bg-color: #fff5f5;
+        }
+
+        body {
+            font-family: 'Mukta Malar', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.pexels.com/photos/1624487/pexels-photo-1624487.jpeg?auto=compress&cs=tinysrgb&w=1000');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        header h1 { font-size: 2.5rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        header p { font-size: 1.2rem; margin-top: 10px; }
+
+        .container {
+            width: 95%;
+            max-width: 1000px;
+            margin: -40px auto 40px;
+        }
+
+        .nav-link {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .food-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            border-bottom: 5px solid var(--primary-color);
+        }
+
+        .food-card:hover { transform: translateY(-5px); }
+        .food-card img { width: 100%; height: 220px; object-fit: cover; }
+
+        .food-content { padding: 20px; text-align: center; flex-grow: 1; }
+        .food-content h3 { margin: 0; color: var(--primary-color); }
+        
+        .price-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .price-table-section {
+            background: white;
+            margin-top: 40px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 15px; border: 1px solid #eee; text-align: center; }
+        th { background: var(--primary-color); color: white; }
+        tr:nth-child(even) { background-color: #fef1f1; }
+
+        .form-section {
+            background: white;
+            margin-top: 40px;
+            padding: 30px;
+            border-radius: 15px;
+            border-top: 5px solid var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+
+        .submit-btn {
+            background: #25d366;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            width: 100%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        footer { text-align: center; padding: 40px; color: #888; background: #fff; margin-top: 40px; }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            th, td { padding: 10px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>சுகன்யா வீட்டு அசைவ உணவு 🍗</h1>
+    <p>தரமான இறைச்சி, வீட்டு முறை சுவை - உங்கள் இல்லம் தேடி!</p>
+</header>
+
+<div class="container">
+    <center><a href="index.html" class="nav-link">← சைவ உணவிற்கு மாற இங்கே கிளிக் செய்யவும்</a></center>
+
+    <div class="menu-grid">
+        <div class="food-card">
+            <img src="https://images.pexels.com/photos/1211887/pexels-photo-1211887.jpeg?auto=compress&w=500" alt="Breakfast">
+            <div class="food-content">
+                <h3>அசைவ காலை உணவு</h3>
+                <p>இட்லி அல்லது தோசை & சிக்கன்/முட்டை குழம்பு</p>
+                <div class="price-badge">₹80 / ஒரு முறை</div>
+            </div>
+        </div>
+
+        <div class="food-card">
+            <img src="https://images.pexels.com/photos/1624487/pexels-photo-1624487.jpeg?auto=compress&w=500" alt="Biryani">
+            <div class="food-content">
+                <h3>அசைவ மதிய உணவு</h3>
+                <p>பிரியாணி அல்லது சாதம், மீன் குழம்பு & வறுவல்</p>
+                <div class="price-badge">₹120 / ஒரு முறை</div>
+            </div>
+        </div>
+
+        <div class="food-card">
+            <img src="https://images.pexels.com/photos/2233729/pexels-photo-2233729.jpeg?auto=compress&w=500" alt="Dinner">
+            <div class="food-content">
+                <h3>அசைவ இரவு உணவு</h3>
+                <p>சப்பாத்தி அல்லது பரோட்டா & சிக்கன் சால்னா</p>
+                <div class="price-badge">₹90 / ஒரு முறை</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="price-table-section">
+        <h2 style="text-align: center;">அசைவ வாராந்திர மெனு & அளவு</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>நாள்</th>
+                    <th>காலை (₹80)</th>
+                    <th>மதியம் (₹120)</th>
+                    <th>இரவு (₹90)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>திங்கள்</strong></td>
+                    <td>4 இட்லி & முட்டை தொக்கு</td>
+                    <td>சாதம், மீன் குழம்பு & மீன் வறுவல்</td>
+                    <td>3 தோசை & சிக்கன் சால்னா</td>
+                </tr>
+                <tr>
+                    <td><strong>செவ்வாய்</strong></td>
+                    <td>3 தோசை & சிக்கன் குழம்பு</td>
+                    <td><strong>சிக்கன் பிரியாணி</strong> & முட்டை</td>
+                    <td>3 சப்பாத்தி & முட்டை கறி</td>
+                </tr>
+                <tr>
+                    <td><strong>புதன்</strong></td>
+                    <td>3 பூரி & கிழங்கு மசாலா</td>
+                    <td>சாதம், நாட்டுக்கோழி குழம்பு & முட்டை</td>
+                    <td>3 பொடி தோசை & மீன் குழம்பு</td>
+                </tr>
+                <tr>
+                    <td><strong>வியாழன்</strong></td>
+                    <td>5 இடியாப்பம் & ஆட்டுக்கால் பாயா</td>
+                    <td>சாதம், மீன் வறுவல் & இறால் தொக்கு</td>
+                    <td>3 சப்பாத்தி & சிக்கன் குருமா</td>
+                </tr>
+                <tr>
+                    <td><strong>வெள்ளி</strong></td>
+                    <td>4 இட்லி & மீன் குழம்பு</td>
+                    <td>நெய் சாதம் & சிக்கன் வறுவல்</td>
+                    <td>2 ஊத்தாப்பம் & முட்டை மசாலா</td>
+                </tr>
+                <tr>
+                    <td><strong>சனி</strong></td>
+                    <td>ரவா கிச்சடி & சட்னி</td>
+                    <td>சாதம் & மட்டன் குழம்பு & முட்டை</td>
+                    <td>3 பரோட்டா & சிக்கன் சால்னா</td>
+                </tr>
+                <tr>
+                    <td><strong>ஞாயிறு</strong></td>
+                    <td>3 ஆப்பம் & தேங்காய் பால்</td>
+                    <td><strong>ஸ்பெஷல் மட்டன் பிரியாணி</strong></td>
+                    <td>3 சப்பாத்தி & சிக்கன் மசாலா</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<div class="price-table-section">
+        <h2 style="text-align: center;">அசைவ உணவு விலை விபரம் (Non-Veg Price Chart)</h2>
+        <p style="text-align: center; color: #666; font-size: 0.9rem;">(சிறந்த தரம் மற்றும் சுவையான அசைவ விருந்து)</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>நேரம்</th>
+                    <th>அளவு (Quantity)</th>
+                    <th>தினசரி (Daily)</th>
+                    <th>மாதாந்திர (Monthly)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>காலை உணவு</strong></td>
+                    <td>4 இட்லி/தோசை + சிக்கன்/முட்டை குழம்பு</td>
+                    <td>₹80</td>
+                    <td>₹2200</td>
+                </tr>
+                <tr>
+                    <td><strong>மதிய உணவு</strong></td>
+                    <td>பிரியாணி (450g) அல்லது மீன் மீல்ஸ்</td>
+                    <td>₹120</td>
+                    <td>₹3400</td>
+                </tr>
+                <tr>
+                    <td><strong>இரவு உணவு</strong></td>
+                    <td>3 சப்பாத்தி/தோசை + சிக்கன் சால்னா</td>
+                    <td>₹90</td>
+                    <td>₹2500</td>
+                </tr>
+                <tr style="background: #fff5f5; font-weight: bold; border: 2px solid var(--primary-color);">
+                    <td><strong>3 வேளைகளும் (Full Day)</strong></td>
+                    <td>முழு நாள் அசைவ விருந்து</td>
+                    <td>₹280</td>
+                    <td><strong>₹7500 மட்டும்</strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="margin-top: 15px; font-size: 0.9rem; color: #e74c3c; text-align: center; font-weight: bold;">
+            * ஞாயிற்றுக்கிழமை ஸ்பெஷல் மட்டன் பிரியாணிக்கு கூடுதல் கட்டணம் கிடையாது (சந்தாதாரர்களுக்கு)!
+        </p>
+    </div>
+    <div class="form-section" id="register">
+        <h2 style="text-align: center;">அசைவ உணவை முன்பதிவு செய்ய</h2>
+        <form id="nonVegOrderForm">
+            <div class="form-group">
+                <label>பெயர் (Name):</label>
+                <input type="text" id="name" placeholder="உங்கள் பெயரை உள்ளிடவும்" required>
+            </div>
+            <div class="form-group">
+                <label>செல்போன் எண் (10 இலக்கம்):</label>
+                <input type="tel" id="phone" placeholder="98xxxxxxxx" maxlength="10" required>
+            </div>
+            <div class="form-group">
+                <label>உணவு வேளை (Meal Type):</label>
+                <select id="meal">
+                    <option value="அசைவ காலை">காலை மட்டும்</option>
+                    <option value="அசைவ மதியம்">மதியம் மட்டும்</option>
+                    <option value="அசைவ இரவு">இரவு மட்டும்</option>
+                    <option value="முழு நாள் அசைவம்">அனைத்து வேளைகளும்</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>முகவரி (Address):</label>
+                <input type="text" id="address" placeholder="டெலிவரி முகவரி" required>
+            </div>
+            <button type="submit" class="submit-btn">✅ அசைவ உணவு ஆர்டர் செய் (WhatsApp)</button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 சுகன்யா வீட்டு அசைவ உணவு | FSSAI: 22425422000316</p>
+    <p>தைலாவரம், செங்கல்பட்டு - 603203</p>
+</footer>
+
+<script>
+document.getElementById('nonVegOrderForm').onsubmit = function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const meal = document.getElementById('meal').value;
+    const address = document.getElementById('address').value;
+
+    if (!/^\d{10}$/.test(phone)) {
+        alert("சரியான 10 இலக்க போன் எண்ணை உள்ளிடவும்.");
+        return;
+    }
+
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzIE4GnvE9u4LxLQtRt5KqW1FvO_6a0hrh_IWjW90g9Qwn5Wne5e-E7hqPW9sXuTCIf/exec"; 
+
+    const formData = { Name: name, Phone: phone, Meal: meal, Address: address, Type: "Non-Veg" };
+
+    const submitBtn = e.target.querySelector('button');
+    submitBtn.innerText = "பதிவாகிறது...";
+    submitBtn.disabled = true;
+
+    fetch(GOOGLE_SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify(formData)
+    }).then(() => {
+        submitBtn.innerText = "✅ அசைவ உணவு ஆர்டர் செய் (WhatsApp)";
+        submitBtn.disabled = false;
+        offerInstall(); // PWA Prompt
+        sendToWhatsApp(formData);
+    }).catch(() => {
+        sendToWhatsApp(formData);
+    });
+};
+
+function sendToWhatsApp(data) {
+    let msg = `*சுகன்யா அசைவ உணவு - புதிய பதிவு!*%0A%0A` +
+              `👤 *பெயர்:* ${data.Name}%0A` +
+              `📞 *போன்:* ${data.Phone}%0A` +
+              `🍱 *உணவு:* ${data.Meal}%0A` +
+              `📍 *முகவரி:* ${data.Address}`;
+    window.open(`https://wa.me/919865487644?text=${msg}`, '_blank');
+}
+
+// PWA Install Prompt
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+});
+
+function offerInstall() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt = null;
+    }
+}
+</script>
+</body>
+</html>
