@@ -339,7 +339,6 @@
     <p>&copy; 2026 சுகன்யா வீட்டு அசைவ உணவு | FSSAI: 22425422000316</p>
     <p>தைலாவரம், செங்கல்பட்டு - 603203</p>
 </footer>
-
 <script>
 document.getElementById('nonVegOrderForm').onsubmit = function(e) {
     e.preventDefault();
@@ -356,13 +355,13 @@ document.getElementById('nonVegOrderForm').onsubmit = function(e) {
         return;
     }
 
-    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzIE4GnvE9u4LxLQtRt5KqW1FvO_6a0hrh_IWjW90g9Qwn5Wne5e-E7hqPW9sXuTCIf/exec"; 
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbw9TnX6dnQ6JUrvox0aeFtq0msOJTZ6bHuY9oxmEDDZEE7oQkFnsEGvsl-R4uiFo7fJ/exec"; 
 
     const formData = { 
         Name: name, 
         Phone: phone, 
         Choice: duration, 
-        FoodType: foodType,
+        FoodType: foodType, // இது கூகுள் ஷீட்டில் FoodType காலத்திற்குச் செல்லும்
         Meal: meal, 
         Address: address 
     };
@@ -370,7 +369,7 @@ document.getElementById('nonVegOrderForm').onsubmit = function(e) {
     const submitBtn = e.target.querySelector('button');
     submitBtn.innerText = "பதிவாகிறது...";
     submitBtn.disabled = true;
-	offerInstall()
+
     fetch(GOOGLE_SHEET_URL, {
         method: 'POST',
         mode: 'no-cors',
@@ -392,12 +391,11 @@ function sendToWhatsApp(data) {
                   `👤 *பெயர்:* ${data.Name}%0A` +
                   `📞 *போன்:* ${data.Phone}%0A` +
                   `📅 *வகை:* ${data.Choice}%0A` +
-                  `🥗 *உணவு:* ${data.FoodType}%0A` +
+                  `🍖 *உணவு:* ${data.FoodType}%0A` +
                   `🍱 *வேளை:* ${data.Meal}%0A` +
                   `📍 *முகவரி:* ${data.Address}`;
     window.open(`https://wa.me/${myWhatsAppNumber}?text=${message}`, '_blank');
 }
-
 // PWA Install Prompt
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
