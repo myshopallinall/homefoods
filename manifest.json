@@ -1,0 +1,16 @@
+{
+  "short_name": "சுகன்யா உணவு",
+  "name": "சுகன்யா வீட்டு உணவு",
+  "description": "ஆரோக்கியமான வீட்டு முறை சமையல்",
+  "icons": [
+    {
+      "src": "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&w=192",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#2ecc71",
+  "background_color": "#f8f9fa"
+}
