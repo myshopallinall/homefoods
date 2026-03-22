@@ -49,6 +49,32 @@
             margin: -40px auto 40px;
         }
 
+        /* புதிய மெனு தேர்வு பட்டன்கள் */
+        .menu-selection {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .selector-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .veg-active { background: var(--primary-color); color: white; border: 2px solid var(--primary-color); }
+        .nonveg-inactive { background: white; color: #e74c3c; border: 2px solid #e74c3c; }
+        .nonveg-inactive:hover { background: #e74c3c; color: white; }
+
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -168,6 +194,11 @@
 
 <div class="container">
     
+    <div class="menu-selection">
+        <a href="#" class="selector-btn veg-active">🥬 சைவம் (Veg)</a>
+        <a href="nonveg.html" class="selector-btn nonveg-inactive">🍗 அசைவம் (Non-Veg)</a>
+    </div>
+
     <div class="menu-grid">
         <div class="food-card">
             <img src="https://images.pexels.com/photos/5560763/pexels-photo-5560763.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Breakfast">
@@ -198,6 +229,7 @@
             </div>
         </div>
     </div>
+
 <div class="price-table-section">
         <h2 style="text-align: center;">வாராந்திர உணவுப் பட்டியல் (Weekly Menu & Quantity)</h2>
         <p style="text-align: center; color: #666; font-size: 0.9rem;">(தரமான பொருட்கள் மற்றும் சரியான அளவுடன்)</p>
@@ -295,6 +327,16 @@
         </table>
     </div>
 
+
+<div class="form-group">
+    <label>உணவு வகை (Veg/Non-Veg):</label>
+    <select id="foodCategory">
+        <option value="Vegetarian (சைவம்)">சைவம் (Veg)</option>
+        <option value="Non-Vegetarian (அசைவம்)">அசைவம் (Non-Veg)</option>
+    </select>
+</div>
+
+
     <div class="form-section" id="register">
         <h2 style="text-align: center;">உணவை முன்பதிவு செய்ய</h2>
         <form id="foodOrderForm">
@@ -305,7 +347,7 @@
             
             <div class="form-group">
                 <label>செல்போன் எண் (Mobile):</label>
-                <input type="tel" id="phone" placeholder="9865487644" required>
+                <input type="tel" id="phone" placeholder="98xxxxxxxxx" required>
             </div>
 
             <div class="form-group">
@@ -349,40 +391,36 @@
 </div>
 </footer>
 
-
-
-
-
-
 <script>
- document.getElementById('foodOrderForm').onsubmit = function(e) {
+document.getElementById('foodOrderForm').onsubmit = function(e) {
     e.preventDefault();
     
-    // படிவத் தரவுகள்
+    // படிவத் தரவுகள் சேகரிப்பு
     const name = document.getElementById('name').value;
     const phone = document.getElementById('phone').value;
+    const category = document.getElementById('foodCategory').value; // புதியது
     const duration = document.getElementById('duration').value;
     const meal = document.getElementById('meal').value;
     const address = document.getElementById('address').value;
 
-    // செல்போன் எண் 10 இலக்கங்கள் தானா என்று சரிபார்க்கும் நிபந்தனை (10 Digit Validation)
     const phonePattern = /^\d{10}$/; 
     if (!phonePattern.test(phone)) {
         alert("தயவுசெய்து சரியான 10 இலக்க செல்போன் எண்ணை உள்ளிடவும்.");
-        return; // தவறான எண் எனில் பதிவைத் தடுக்கும்
+        return;
     }
 
     const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzIE4GnvE9u4LxLQtRt5KqW1FvO_6a0hrh_IWjW90g9Qwn5Wne5e-E7hqPW9sXuTCIf/exec"; 
 
+    // கூகுள் ஷீட்டிற்கு அனுப்பப்படும் தரவு
     const formData = {
         Name: name,
         Phone: phone,
+        FoodType: category, // கூகுள் ஷீட்டில் FoodType என்ற பெயரில் விழும்
         Choice: duration,
         Meal: meal,
         Address: address
     };
 
-    // பட்டனை தற்காலிகமாக டிஸேபிள் செய்யவும்
     const submitBtn = e.target.querySelector('button');
     submitBtn.innerText = "பதிவாகிறது...";
     submitBtn.disabled = true;
@@ -390,17 +428,14 @@
     fetch(GOOGLE_SHEET_URL, {
         method: 'POST',
         mode: 'no-cors', 
-        headers: {
-            'Content-Type': 'text/plain'
-        },
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify(formData)
     }).then(() => {
         submitBtn.innerText = "✅ ஆர்டர் செய் (Order via WhatsApp)";
         submitBtn.disabled = false;
-	offerInstall();
+        if(typeof offerInstall === "function") offerInstall();
         sendToWhatsApp(formData);
     }).catch(err => {
-        console.error("Error!", err);
         submitBtn.disabled = false;
         sendToWhatsApp(formData); 
     });
@@ -411,21 +446,21 @@ function sendToWhatsApp(data) {
     let message = `*சுகன்யா வீட்டு உணவு - புதிய பதிவு!*%0A%0A` +
                   `👤 *பெயர்:* ${data.Name}%0A` +
                   `📞 *போன்:* ${data.Phone}%0A` +
-                  `📅 *வகை:* ${data.Choice}%0A` +
-                  `🍱 *உணவு:* ${data.Meal}%0A` +
+                  `🍱 *வகை:* ${data.FoodType}%0A` + // வாட்ஸ்அப்பில் காட்டும்
+                  `📅 *காலம்:* ${data.Choice}%0A` +
+                  `🥣 *உணவு:* ${data.Meal}%0A` +
                   `📍 *முகவரி:* ${data.Address}`;
 
     let url = `https://wa.me/${myWhatsAppNumber}?text=${message}`;
     window.open(url, '_blank').focus();
     alert("விவரங்கள் சேமிக்கப்பட்டு வாட்ஸ்அப்பிற்கு அனுப்பப்படுகிறது!");
-}
-    
+}    
 
 // PWA Install Prompt Logic
 let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', (e) => {
-    // Chrome 67 மற்றும் அதற்கு முந்தைய பதிப்புகளில் தானாகத் தோன்றுவதைத் தடுக்க
+    // Chrome 67 மற்றும் அதற்கு முந்தைய பதிப்புகளில் தானாகத் தோன்றுவதைத் தடுக்கும்
     e.preventDefault();
     deferredPrompt = e;
     console.log('PWA தயார் நிலையில் உள்ளது');
@@ -443,8 +478,6 @@ function offerInstall() {
         });
     }
 }
-
-// உங்கள் ஏற்கனவே உள்ள fetch().then() பகுதிக்குள் offerInstall() ஐ அழைக்கவும்
 </script>
 
 </body>
