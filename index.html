@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="ta">
 <head>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2ecc71">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="சுகன்யா உணவு">
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>சுகன்யா வீட்டு உணவு - ஆரோக்கியமான வீட்டு முறை உணவு</title>
     
@@ -352,6 +358,31 @@ function sendToWhatsApp(data) {
     alert("விவரங்கள் சேமிக்கப்பட்டு வாட்ஸ்அப்பிற்கு அனுப்பப்படுகிறது!");
 }
     
+
+// PWA Install Prompt Logic
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Chrome 67 மற்றும் அதற்கு முந்தைய பதிப்புகளில் தானாகத் தோன்றுவதைத் தடுக்க
+    e.preventDefault();
+    deferredPrompt = e;
+    console.log('PWA தயார் நிலையில் உள்ளது');
+});
+
+// வெற்றிகரமாக வாட்ஸ்அப் ஆர்டர் செய்த பிறகு, ஆப் போலச் சேர்க்கச் சொல்லலாம்
+function offerInstall() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('பயனர் ஆப்பை இன்ஸ்டால் செய்துவிட்டார்');
+            }
+            deferredPrompt = null;
+        });
+    }
+}
+
+// உங்கள் ஏற்கனவே உள்ள fetch().then() பகுதிக்குள் offerInstall() ஐ அழைக்கவும்
 </script>
 
 </body>
